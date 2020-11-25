@@ -1,0 +1,7 @@
+--exclude **/Pods,**/fastlane,**/Submodules,**/R.generated.swift
+--indent 2
+--patternlet inline
+--commas inline
+--self init-only
+--enable isEmpty
+--disable redundantFileprivate
