@@ -26,7 +26,7 @@ open class LHCropBorderView: UIView {
     didSet { setNeedsDisplay() }
   }
 
-  override init(frame: CGRect) {
+  public override init(frame: CGRect = .zero) {
     super.init(frame: frame)
 
     self.backgroundColor = UIColor.clear
@@ -38,7 +38,7 @@ open class LHCropBorderView: UIView {
     self.backgroundColor = UIColor.clear
   }
 
-  override open func draw(_ rect: CGRect) {
+  open override func draw(_ rect: CGRect) {
     let context = UIGraphicsGetCurrentContext()
 
     context?.setStrokeColor(lineColor.cgColor)
