@@ -10,23 +10,23 @@ import UIKit
 
 open class LHCropBorderView: UIView {
   private let kNumberOfBorderHandles: CGFloat = 8
-  open var diameterSize: CGFloat = 6 {
+  open var diameterSize: CGFloat = LHImagePicker.CropConfigs.diameterSize {
     didSet { setNeedsDisplay() }
   }
 
-  open var lineWidth: CGFloat = 1.5 {
+  open var lineWidth: CGFloat = LHImagePicker.CropConfigs.lineWidth {
     didSet { setNeedsDisplay() }
   }
 
-  open var lineColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5) {
+  open var lineColor = LHImagePicker.CropConfigs.lineColor {
     didSet { setNeedsDisplay() }
   }
 
-  open var diameterColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.95) {
+  open var diameterColor = LHImagePicker.CropConfigs.diameterColor {
     didSet { setNeedsDisplay() }
   }
 
-  public override init(frame: CGRect = .zero) {
+  override public init(frame: CGRect = .zero) {
     super.init(frame: frame)
 
     self.backgroundColor = UIColor.clear
@@ -38,7 +38,7 @@ open class LHCropBorderView: UIView {
     self.backgroundColor = UIColor.clear
   }
 
-  open override func draw(_ rect: CGRect) {
+  override open func draw(_ rect: CGRect) {
     let context = UIGraphicsGetCurrentContext()
 
     context?.setStrokeColor(lineColor.cgColor)

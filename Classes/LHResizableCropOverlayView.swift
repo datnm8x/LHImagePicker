@@ -120,6 +120,11 @@ internal class LHResizableCropOverlayView: LHImageCropOverlayView {
     )
     cropBorderView.backgroundColor = .clear
     addSubview(cropBorderView)
+    guard cropBorderViewForResizable != nil else { return }
+    cropBorderView.diameterSize = LHImagePicker.CropConfigs.diameterSize
+    cropBorderView.diameterColor = LHImagePicker.CropConfigs.diameterColor
+    cropBorderView.lineWidth = LHImagePicker.CropConfigs.lineWidth
+    cropBorderView.lineColor = LHImagePicker.CropConfigs.lineColor
   }
 
   private func calculateAnchorBorder(anchorPoint: CGPoint) -> CGPoint {

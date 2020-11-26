@@ -113,10 +113,19 @@ internal class LHImageCropView: UIView, UIScrollViewDelegate {
       scrollView.frame.width / scrollView.frame.height
     scrollView.maximumZoomScale = 20
     scrollView.setZoomScale(1.0, animated: false)
+
+    let tapGes = UITapGestureRecognizer(target: self, action: #selector(didTap))
+    tapGes.numberOfTapsRequired = 2
+    scrollView.addGestureRecognizer(tapGes)
   }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+  }
+
+  @objc private func didTap() {
+    let zoom: CGFloat = scrollView.zoomScale > 1 ? 1 : 2
+    scrollView.setZoomScale(zoom, animated: true)
   }
 
   override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

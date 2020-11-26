@@ -16,7 +16,6 @@ internal protocol LHImageCropControllerDelegate {
 internal class LHImageCropViewController: UIViewController {
   var sourceImage: UIImage?
   var delegate: LHImageCropControllerDelegate?
-  var cropSize = CGSize(width: UIScreen.main.bounds.size.width - 60, height: UIScreen.main.bounds.size.width - 60)
   var resizableCropArea = false
   var cropBorderViewForResizable: LHCropBorderView?
 
@@ -73,7 +72,7 @@ internal class LHImageCropViewController: UIViewController {
     imageCropView.imageToCrop = sourceImage
     imageCropView.cropBorderViewForResizable = cropBorderViewForResizable
     imageCropView.resizableCropArea = resizableCropArea
-    imageCropView.cropSize = cropSize
+    imageCropView.cropSize = LHImagePicker.CropConfigs.cropSize
     view.addSubview(imageCropView)
   }
 
@@ -82,7 +81,7 @@ internal class LHImageCropViewController: UIViewController {
     cancelButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     cancelButton.titleLabel?.shadowOffset = CGSize(width: 0, height: -1)
     cancelButton.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
-    cancelButton.setTitle("Cancel", for: .normal)
+    cancelButton.setTitle(LHImagePicker.CropConfigs.ButtonsTitle.cancel, for: .normal)
     cancelButton.setTitleShadowColor(
       UIColor(red: 0.118, green: 0.247, blue: 0.455, alpha: 1), for: .normal
     )
@@ -94,7 +93,7 @@ internal class LHImageCropViewController: UIViewController {
     useButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
     useButton.titleLabel?.shadowOffset = CGSize(width: 0, height: -1)
     useButton.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
-    useButton.setTitle("Use", for: .normal)
+    useButton.setTitle(LHImagePicker.CropConfigs.ButtonsTitle.use, for: .normal)
     useButton.setTitleShadowColor(
       UIColor(red: 0.118, green: 0.247, blue: 0.455, alpha: 1), for: .normal
     )

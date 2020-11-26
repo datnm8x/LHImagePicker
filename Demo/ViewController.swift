@@ -21,6 +21,9 @@ class ViewController: UIViewController, LHImagePickerDelegate, UIImagePickerCont
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    LHImagePicker.CropConfigs.ButtonsTitle.cancel = "キャンセル"
+    LHImagePicker.CropConfigs.ButtonsTitle.use = "確定"
+
     customCropButton = UIButton()
     customCropButton.frame = UIDevice.current.userInterfaceIdiom == .pad ?
       CGRect(x: 20, y: 20, width: 220, height: 44) :
@@ -66,7 +69,6 @@ class ViewController: UIViewController, LHImagePickerDelegate, UIImagePickerCont
 
   @objc func showPicker(_ button: UIButton) {
     imagePicker = LHImagePicker()
-    imagePicker.cropSize = CGSize(width: 280, height: 280)
     imagePicker.delegate = self
 
     if UIDevice.current.userInterfaceIdiom == .pad {
@@ -93,7 +95,6 @@ class ViewController: UIViewController, LHImagePickerDelegate, UIImagePickerCont
 
   @objc func showResizablePicker(_ button: UIButton) {
     imagePicker = LHImagePicker()
-    imagePicker.cropSize = CGSize(width: 280, height: 280)
     imagePicker.delegate = self
     imagePicker.resizableCropArea = true
 
@@ -126,21 +127,5 @@ class ViewController: UIViewController, LHImagePickerDelegate, UIImagePickerCont
     } else {
       picker.dismiss(animated: true, completion: nil)
     }
-  }
-
-  func imagePickerCropBorderClassForResizable(imagePicker _: LHImagePicker) -> LHCropBorderView {
-    CustomCropBorderView(frame: .zero)
-  }
-}
-
-class CustomCropBorderView: LHCropBorderView {
-  override var diameterSize: CGFloat {
-    get { 30 }
-    set { super.diameterSize = newValue }
-  }
-
-  override var lineColor: UIColor {
-    get { .green }
-    set { super.lineColor = newValue }
   }
 }
