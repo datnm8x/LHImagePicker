@@ -38,8 +38,6 @@ private class ScrollView: UIScrollView {
 
 internal class LHImageCropView: UIView, UIScrollViewDelegate {
   var resizableCropArea = false
-  var cropDiameterSize: CGFloat = 6
-  var cropBorderViewForResizable: LHCropBorderView?
 
   private var scrollView: UIScrollView!
   private var imageView: UIImageView!

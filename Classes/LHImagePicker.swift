@@ -27,8 +27,6 @@ public extension LHImagePicker {
 @objc public protocol LHImagePickerDelegate: NSObjectProtocol {
   @objc optional func imagePicker(imagePicker: LHImagePicker, pickedImage: UIImage?)
   @objc optional func imagePickerDidCancel(imagePicker: LHImagePicker)
-
-  @objc optional func imagePickerCropBorderClassForResizable(imagePicker: LHImagePicker) -> LHCropBorderView
 }
 
 @objc public class LHImagePicker: NSObject {

@@ -9,6 +9,8 @@
 import CoreGraphics
 import UIKit
 
+internal let toolbarHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0 : 44
+
 internal protocol LHImageCropControllerDelegate {
   func imageCropController(imageCropController: LHImageCropViewController, didFinishWithCroppedImage croppedImage: UIImage?)
 }
@@ -19,36 +21,23 @@ internal class LHImageCropViewController: UIViewController {
   var resizableCropArea = false
   var cropBorderViewForResizable: LHCropBorderView?
 
-  private var croppedImage: UIImage?
-
-  private var imageCropView: LHImageCropView!
+  private let imageCropView = LHImageCropView(frame: .zero)
   private var toolbar: UIToolbar!
   private var useButton: UIButton!
   private var cancelButton: UIButton!
 
+  private var croppedImage: UIImage?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    automaticallyAdjustsScrollViewInsets = false
-
     title = "Choose Photo"
+    navigationController?.isNavigationBarHidden = UIDevice.current.userInterfaceIdiom == .phone
+    automaticallyAdjustsScrollViewInsets = false
 
     setupNavigationBar()
     setupCropView()
     setupToolbar()
-
-    if UIDevice.current.userInterfaceIdiom == .phone {
-      navigationController?.isNavigationBarHidden = true
-    } else {
-      navigationController?.isNavigationBarHidden = false
-    }
-  }
-
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-
-    imageCropView.frame = view.bounds
-    toolbar?.frame = CGRect(x: 0, y: view.frame.height - 54, width: view.frame.size.width, height: 54)
   }
 
   @objc func actionCancel(sender _: AnyObject) {
@@ -68,12 +57,14 @@ internal class LHImageCropViewController: UIViewController {
   }
 
   private func setupCropView() {
-    imageCropView = LHImageCropView(frame: view.bounds)
+    imageCropView.frame = view.bounds
+    imageCropView.cropSize = LHImagePicker.CropConfigs.cropSize
+    imageCropView.translatesAutoresizingMaskIntoConstraints = false
     imageCropView.imageToCrop = sourceImage
     imageCropView.cropBorderViewForResizable = cropBorderViewForResizable
     imageCropView.resizableCropArea = resizableCropArea
-    imageCropView.cropSize = LHImagePicker.CropConfigs.cropSize
     view.addSubview(imageCropView)
+    imageCropView.constraintToSuperViewLHImagePicker()
   }
 
   private func setupCancelButton() {
@@ -101,7 +92,7 @@ internal class LHImageCropViewController: UIViewController {
   }
 
   private func toolbarBackgroundImage() -> UIImage {
-    let components: [CGFloat] = [1, 1, 1, 1, 123.0 / 255.0, 125.0 / 255.0, 132.0 / 255.0, 1]
+    let components: [CGFloat] = [1, 1, 1, 0.5, 123.0 / 255.0, 125.0 / 255.0, 132.0 / 255.0, 0.5]
 
     UIGraphicsBeginImageContextWithOptions(CGSize(width: 320, height: 54), true, 0)
 
@@ -121,7 +112,8 @@ internal class LHImageCropViewController: UIViewController {
   private func setupToolbar() {
     guard UIDevice.current.userInterfaceIdiom == .phone else { return }
 
-    toolbar = UIToolbar(frame: CGRect.zero)
+    toolbar = UIToolbar(frame: CGRect(x: 0, y: view.frame.height - view.safeAreaInsetsLHImagePicker.bottom, width: view.frame.width, height: toolbarHeight))
+    toolbar.translatesAutoresizingMaskIntoConstraints = false
     toolbar.isTranslucent = true
     toolbar.barStyle = .black
     view.addSubview(toolbar)
@@ -144,5 +136,17 @@ internal class LHImageCropViewController: UIViewController {
     let use = UIBarButtonItem(customView: useButton)
 
     toolbar.setItems([cancel, flex, label, flex, use], animated: false)
+
+    if #available(iOS 11.0, *) {
+      toolbar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+      toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+      toolbar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+    } else {
+      // Fallback on earlier versions
+      toolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+      toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+      toolbar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight).isActive = true
   }
 }

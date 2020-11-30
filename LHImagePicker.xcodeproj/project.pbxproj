@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0931938B2574E9290088B10C /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0931938A2574E9290088B10C /* UIView+Constraint.swift */; };
 		748716EB256E981C0061DEDD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 748716E3256E981C0061DEDD /* LaunchScreen.xib */; };
 		748716EC256E981C0061DEDD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 748716E5256E981C0061DEDD /* Localizable.strings */; };
 		748716ED256E981C0061DEDD /* PhotoLibrary.strings in Resources */ = {isa = PBXBuildFile; fileRef = 748716E7256E981C0061DEDD /* PhotoLibrary.strings */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0931938A2574E9290088B10C /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
 		239F5A6EACADCB0224A3EC8C /* Pods-LHImagePicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHImagePicker.debug.xcconfig"; path = "Target Support Files/Pods-LHImagePicker/Pods-LHImagePicker.debug.xcconfig"; sourceTree = "<group>"; };
 		646D03B3ADDB6E6F82A41498 /* Pods_LHImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LHImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		748716E4256E981C0061DEDD /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				764FD5AD1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift */,
 				764FD5AF1B8F03FA00BE5F46 /* LHCropBorderView.swift */,
 				764FD5B11B8F040A00BE5F46 /* LHResizableCropOverlayView.swift */,
+				0931938A2574E9290088B10C /* UIView+Constraint.swift */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
@@ -262,6 +265,7 @@
 				764FD5B01B8F03FA00BE5F46 /* LHCropBorderView.swift in Sources */,
 				764FD5AC1B8F03B400BE5F46 /* LHImageCropView.swift in Sources */,
 				764FD5A81B8F027900BE5F46 /* LHImagePicker.swift in Sources */,
+				0931938B2574E9290088B10C /* UIView+Constraint.swift in Sources */,
 				764FD5AE1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift in Sources */,
 				764FD5AA1B8F033A00BE5F46 /* LHImageCropViewController.swift in Sources */,
 			);
