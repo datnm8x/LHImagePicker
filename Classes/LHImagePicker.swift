@@ -11,10 +11,11 @@ import UIKit
 public extension LHImagePicker {
   enum CropConfigs {
     public static var diameterSize: CGFloat = 6
-    public static var lineWidth: CGFloat = 1.5
+    public static var lineWidth: CGFloat = 10
     public static var lineColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
     public static var diameterColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.95)
     public static var cropSize = CGSize(width: 300, height: 300)
+    public static var backgroundColor = UIColor.black.withAlphaComponent(0.5)
 
     public enum ButtonsTitle {
       public static var cancel: String = "Cancel"

@@ -29,13 +29,13 @@ open class LHCropBorderView: UIView {
   override public init(frame: CGRect = .zero) {
     super.init(frame: frame)
 
-    self.backgroundColor = UIColor.clear
+    self.backgroundColor = LHImagePicker.CropConfigs.backgroundColor
   }
 
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
-    self.backgroundColor = UIColor.clear
+    self.backgroundColor = LHImagePicker.CropConfigs.backgroundColor
   }
 
   override open func draw(_ rect: CGRect) {

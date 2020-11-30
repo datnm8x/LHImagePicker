@@ -12,6 +12,14 @@ internal class LHImageCropOverlayView: UIView {
   var cropSize: CGSize!
   var toolbar: UIToolbar!
 
+  open var lineWidth: CGFloat = LHImagePicker.CropConfigs.lineWidth {
+    didSet { setNeedsDisplay() }
+  }
+
+  open var lineColor = LHImagePicker.CropConfigs.lineColor {
+    didSet { setNeedsDisplay() }
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -27,6 +35,8 @@ internal class LHImageCropOverlayView: UIView {
   }
 
   override func draw(_: CGRect) {
+    guard let context = UIGraphicsGetCurrentContext() else { return }
+
     let toolbarSize = CGFloat(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 54)
 
     let width = frame.width
@@ -36,16 +46,30 @@ internal class LHImageCropOverlayView: UIView {
     let widthSpan = floor(width / 2 - cropSize.width / 2)
 
     // fill outer rect
-    UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).set()
+    LHImagePicker.CropConfigs.backgroundColor.set()
     UIRectFill(bounds)
 
-    // fill inner border
-    UIColor(red: 1, green: 1, blue: 1, alpha: 0.5).set()
-    UIRectFrame(CGRect(x: widthSpan - 2, y: heightSpan - 2, width: cropSize.width + 4,
-                       height: cropSize.height + 4))
+    context.setLineWidth(lineWidth)
+    context.setStrokeColor(lineColor.cgColor)
+    context.addRect(
+      CGRect(
+        x: widthSpan,
+        y: heightSpan,
+        width: cropSize.width,
+        height: cropSize.height
+      )
+    )
+    context.strokePath()
 
     // fill inner rect
     UIColor.clear.set()
-    UIRectFill(CGRect(x: widthSpan, y: heightSpan, width: cropSize.width, height: cropSize.height))
+    UIRectFill(
+      CGRect(
+        x: widthSpan,
+        y: heightSpan,
+        width: cropSize.width,
+        height: cropSize.height
+      )
+    )
   }
 }
