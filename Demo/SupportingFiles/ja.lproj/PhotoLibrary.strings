@@ -1,0 +1,11 @@
+/* 
+  PhotoLibrary.strings
+
+  Created by Nguyen Mau Dat on 11/2020.
+  Copyright © 2020 Nguyen Mau Dat. All rights reserved.
+*/
+"CANCEL" = "キャンセル";
+/* Title of button to set contact photo */
+"CHOOSE_PHOTO_BUTTON" = "確定";
+"API_CANCEL_TITLE" = "キャンセル";
+
