@@ -9,36 +9,9 @@
 import QuartzCore
 import UIKit
 
-private class LHImageCropScrollView: UIScrollView {
-//  override fileprivate func layoutSubviews() {
-//    super.layoutSubviews()
-//
-//    guard let zoomView = delegate?.viewForZooming?(in: self) else { return }
-//
-//    let boundsSize = bounds.size
-//    var frameToCenter = zoomView.frame
-//
-//    // center horizontally
-//    if frameToCenter.size.width < boundsSize.width {
-//      frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2
-//    } else {
-//      frameToCenter.origin.x = 0
-//    }
-//
-//    // center vertically
-//    if frameToCenter.size.height < boundsSize.height {
-//      frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2
-//    } else {
-//      frameToCenter.origin.y = 0
-//    }
-//
-//    zoomView.frame = frameToCenter
-//  }
-}
-
 internal class LHImageCropView: UIView, UIScrollViewDelegate {
-  private var scrollView: UIScrollView!
-  private var imageView = UIImageView(frame: .zero)
+  private let scrollView = UIScrollView(frame: .zero)
+  private let imageView = UIImageView(frame: .zero)
   private let cropOverlayView = LHCropOverlayView(frame: .zero)
   var imageToCrop: UIImage? {
     get { imageView.image }
@@ -103,7 +76,7 @@ internal class LHImageCropView: UIView, UIScrollViewDelegate {
     translatesAutoresizingMaskIntoConstraints = false
     self.isUserInteractionEnabled = true
     self.backgroundColor = UIColor.black
-    self.scrollView = LHImageCropScrollView(frame: frame)
+
     scrollView.showsHorizontalScrollIndicator = false
     scrollView.showsVerticalScrollIndicator = false
     scrollView.delegate = self
@@ -134,7 +107,7 @@ internal class LHImageCropView: UIView, UIScrollViewDelegate {
   }
 
   @objc private func didTap() {
-    let minScale = minimumScale
+    let minScale = max(minimumScale, scrollView.minimumZoomScale)
     let zoom: CGFloat = scrollView.zoomScale > minScale ? minScale : minScale * 2
     scrollView.setZoomScale(zoom, animated: true)
   }
@@ -177,7 +150,7 @@ internal class LHImageCropView: UIView, UIScrollViewDelegate {
     imageView.frame = scrollView.bounds
     imageView.frame = factoredRect
     scrollView.minimumZoomScale = minimumScale
-    scrollView.setZoomScale(max(bounds.width / cropSize.width, minimumScale), animated: false)
+    scrollView.setZoomScale(minimumScale, animated: false)
   }
 
   func viewForZooming(in _: UIScrollView) -> UIView? {

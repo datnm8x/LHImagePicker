@@ -90,13 +90,13 @@ internal class LHImageCropViewController: UIViewController {
   private func toolbarBackgroundImage() -> UIImage {
     let components: [CGFloat] = [1, 1, 1, 0.5, 123.0 / 255.0, 125.0 / 255.0, 132.0 / 255.0, 0.5]
 
-    UIGraphicsBeginImageContextWithOptions(CGSize(width: 320, height: 54), true, 0)
+    UIGraphicsBeginImageContextWithOptions(CGSize(width: UIScreen.main.bounds.width, height: toolbarHeight), true, 0)
 
     guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     guard let gradient = CGGradient(colorSpace: colorSpace, colorComponents: components, locations: nil, count: 2) else { return UIImage() }
 
-    context.drawLinearGradient(gradient, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: 54), options: [])
+    context.drawLinearGradient(gradient, start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: toolbarHeight), options: [])
 
     let viewImage = UIGraphicsGetImageFromCurrentImageContext()
 

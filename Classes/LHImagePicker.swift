@@ -10,7 +10,6 @@ import UIKit
 
 public extension LHImagePicker {
   enum CropConfigs {
-    public static var diameterSize: CGFloat = 6
     public static var lineWidth: CGFloat = 10
     public static var lineColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
     public static var diameterColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.95)

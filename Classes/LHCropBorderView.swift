@@ -10,9 +10,7 @@ import UIKit
 
 open class LHCropBorderView: UIView {
   private let kNumberOfBorderHandles: CGFloat = 8
-  open var diameterSize: CGFloat = LHImagePicker.CropConfigs.diameterSize {
-    didSet { setNeedsDisplay() }
-  }
+  private var diameterSize: CGFloat { LHImagePicker.CropConfigs.lineWidth }
 
   open var lineWidth: CGFloat = LHImagePicker.CropConfigs.lineWidth {
     didSet { setNeedsDisplay() }
@@ -42,8 +40,15 @@ open class LHCropBorderView: UIView {
     let context = UIGraphicsGetCurrentContext()
 
     context?.setStrokeColor(lineColor.cgColor)
-    context?.setLineWidth(lineWidth)
-    context?.addRect(CGRect(x: diameterSize / 2, y: diameterSize / 2, width: rect.size.width - diameterSize, height: rect.size.height - diameterSize))
+    context?.setLineWidth(lineWidth * 2)
+    context?.addRect(
+      CGRect(
+        x: 0,
+        y: 0,
+        width: rect.size.width,
+        height: rect.size.height
+      )
+    )
     context?.strokePath()
     context?.setFillColor(diameterColor.cgColor)
 

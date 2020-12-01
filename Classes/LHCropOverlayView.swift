@@ -38,19 +38,18 @@ internal class LHCropOverlayView: UIView {
     set {
       super.frame = newValue
 
-      let toolbarSize = CGFloat(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 54)
       let width = bounds.size.width
       let height = bounds.size.height
 
       contentView?.frame = CGRect(x: (
         width - initialContentSize.width) / 2,
-      y: (height - toolbarSize - initialContentSize.height) / 2,
+      y: (height - toolbarHeight - initialContentSize.height) / 2,
       width: initialContentSize.width,
       height: initialContentSize.height)
 
       cropBorderView.frame = CGRect(
         x: (width - initialContentSize.width) / 2 - kBorderCorrectionValue,
-        y: (height - toolbarSize - initialContentSize.height) / 2 - kBorderCorrectionValue,
+        y: (height - toolbarHeight - initialContentSize.height) / 2 - kBorderCorrectionValue,
         width: initialContentSize.width + kBorderCorrectionValue * 2,
         height: initialContentSize.height + kBorderCorrectionValue * 2
       )
@@ -99,13 +98,12 @@ internal class LHCropOverlayView: UIView {
   }
 
   private func addContentViews() {
-    let toolbarSize = CGFloat(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 54)
     let width = bounds.size.width
     let height = bounds.size.height
 
     contentView = UIView(frame: CGRect(x: (
         width - initialContentSize.width) / 2,
-      y: (height - toolbarSize - initialContentSize.height) / 2,
+      y: (height - toolbarHeight - initialContentSize.height) / 2,
       width: initialContentSize.width,
       height: initialContentSize.height))
     contentView.backgroundColor = UIColor.clear
@@ -114,7 +112,7 @@ internal class LHCropOverlayView: UIView {
 
     cropBorderView.frame = CGRect(
       x: (width - initialContentSize.width) / 2 - kBorderCorrectionValue,
-      y: (height - toolbarSize - initialContentSize.height) / 2 - kBorderCorrectionValue,
+      y: (height - toolbarHeight - initialContentSize.height) / 2 - kBorderCorrectionValue,
       width: initialContentSize.width + kBorderCorrectionValue * 2,
       height: initialContentSize.height + kBorderCorrectionValue * 2
     )
@@ -191,7 +189,6 @@ internal class LHCropOverlayView: UIView {
   }
 
   private func preventBorderFrameFromGettingTooSmallOrTooBig(frame: CGRect) -> CGRect {
-    let toolbarSize = CGFloat(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 54)
     var newFrame = frame
 
     if newFrame.size.width < 64 {
@@ -219,9 +216,9 @@ internal class LHCropOverlayView: UIView {
       newFrame.size.width = self.frame.size.width - cropBorderView.frame.origin.x
     }
 
-    if newFrame.size.height + newFrame.origin.y > self.frame.size.height - toolbarSize {
+    if newFrame.size.height + newFrame.origin.y > self.frame.size.height - toolbarHeight {
       newFrame.size.height = self.frame.size.height -
-        cropBorderView.frame.origin.y - toolbarSize
+        cropBorderView.frame.origin.y - toolbarHeight
     }
 
     return newFrame
