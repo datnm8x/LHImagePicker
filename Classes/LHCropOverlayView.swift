@@ -1,5 +1,5 @@
 //
-//  LHResizableCropOverlayView.swift
+//  LHCropOverlayView.swift
 //  LHImagePicker
 //
 //  Created by Dat Ng on 11/2020.
@@ -8,24 +8,28 @@
 
 import UIKit
 
-private struct LHResizableViewBorderMultiplyer {
+private struct LHViewBorderMultiplyer {
   var widthMultiplyer: CGFloat!
   var heightMultiplyer: CGFloat!
   var xMultiplyer: CGFloat!
   var yMultiplyer: CGFloat!
 }
 
-internal class LHResizableCropOverlayView: LHImageCropOverlayView {
-  private let kBorderCorrectionValue: CGFloat = 12
+internal class LHCropOverlayView: UIView {
+  private let kBorderCorrectionValue: CGFloat = 0
+  var cropSize: CGSize = LHImagePicker.CropConfigs.cropSize
+  var resizableCropArea: Bool = false {
+    didSet { isUserInteractionEnabled = resizableCropArea }
+  }
 
   var contentView: UIView!
-  var cropBorderView: LHCropBorderView!
+  let cropBorderView = LHCropBorderView(frame: .zero)
 
-  private var initialContentSize = CGSize(width: 0, height: 0)
+  private let initialContentSize = LHImagePicker.CropConfigs.cropSize
   private var resizingEnabled: Bool!
   private var anchor: CGPoint!
   private var startPoint: CGPoint!
-  private var resizeMultiplyer = LHResizableViewBorderMultiplyer()
+  private var resizeMultiplyer = LHViewBorderMultiplyer()
 
   override var frame: CGRect {
     get {
@@ -44,7 +48,7 @@ internal class LHResizableCropOverlayView: LHImageCropOverlayView {
       width: initialContentSize.width,
       height: initialContentSize.height)
 
-      cropBorderView?.frame = CGRect(
+      cropBorderView.frame = CGRect(
         x: (width - initialContentSize.width) / 2 - kBorderCorrectionValue,
         y: (height - toolbarSize - initialContentSize.height) / 2 - kBorderCorrectionValue,
         width: initialContentSize.width + kBorderCorrectionValue * 2,
@@ -53,38 +57,35 @@ internal class LHResizableCropOverlayView: LHImageCropOverlayView {
     }
   }
 
-  init(frame: CGRect, initialContentSize: CGSize, cropBorderViewForResizable: LHCropBorderView?) {
+  override init(frame: CGRect) {
     super.init(frame: frame)
 
-    self.initialContentSize = initialContentSize
-    addContentViews(cropBorderViewForResizable)
+    self.backgroundColor = UIColor.clear
+    addContentViews()
   }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-  }
-
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+    self.backgroundColor = UIColor.clear
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
-    if let touch = touches.first {
-      let touchPoint = touch.location(in: cropBorderView)
+    guard resizableCropArea else { return }
+    guard let touch = touches.first else { return }
 
-      anchor = calculateAnchorBorder(anchorPoint: touchPoint)
-      fillMultiplyer()
-      resizingEnabled = true
-      startPoint = touch.location(in: superview)
-    }
+    let touchPoint = touch.location(in: cropBorderView)
+
+    anchor = calculateAnchorBorder(anchorPoint: touchPoint)
+    fillMultiplyer()
+    resizingEnabled = true
+    startPoint = touch.location(in: superview)
   }
 
   override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
-    if let touch = touches.first {
-      if resizingEnabled! {
-        resizeWithTouchPoint(point: touch.location(in: superview))
-      }
-    }
+    guard resizableCropArea else { return }
+    guard let touch = touches.first, let resizing = resizingEnabled, resizing else { return }
+
+    resizeWithTouchPoint(point: touch.location(in: superview))
   }
 
   override func draw(_: CGRect) {
@@ -97,7 +98,7 @@ internal class LHResizableCropOverlayView: LHImageCropOverlayView {
     UIRectFill(contentView.frame)
   }
 
-  private func addContentViews(_ cropBorderViewForResizable: LHCropBorderView?) {
+  private func addContentViews() {
     let toolbarSize = CGFloat(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 54)
     let width = bounds.size.width
     let height = bounds.size.height
@@ -111,7 +112,6 @@ internal class LHResizableCropOverlayView: LHImageCropOverlayView {
     cropSize = contentView.frame.size
     addSubview(contentView)
 
-    cropBorderView = cropBorderViewForResizable ?? LHCropBorderView(frame: .zero)
     cropBorderView.frame = CGRect(
       x: (width - initialContentSize.width) / 2 - kBorderCorrectionValue,
       y: (height - toolbarSize - initialContentSize.height) / 2 - kBorderCorrectionValue,
@@ -120,11 +120,6 @@ internal class LHResizableCropOverlayView: LHImageCropOverlayView {
     )
     cropBorderView.backgroundColor = .clear
     addSubview(cropBorderView)
-    guard cropBorderViewForResizable != nil else { return }
-    cropBorderView.diameterSize = LHImagePicker.CropConfigs.diameterSize
-    cropBorderView.diameterColor = LHImagePicker.CropConfigs.diameterColor
-    cropBorderView.lineWidth = LHImagePicker.CropConfigs.lineWidth
-    cropBorderView.lineColor = LHImagePicker.CropConfigs.lineColor
   }
 
   private func calculateAnchorBorder(anchorPoint: CGPoint) -> CGPoint {

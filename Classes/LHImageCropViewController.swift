@@ -16,16 +16,21 @@ internal protocol LHImageCropControllerDelegate {
 }
 
 internal class LHImageCropViewController: UIViewController {
-  var sourceImage: UIImage?
+  var sourceImage: UIImage? {
+    get { imageCropView.imageToCrop }
+    set { imageCropView.imageToCrop = newValue }
+  }
+
   var delegate: LHImageCropControllerDelegate?
-  var resizableCropArea = false
-  var cropBorderViewForResizable: LHCropBorderView?
+  var resizableCropArea: Bool {
+    get { imageCropView.resizableCropArea }
+    set { imageCropView.resizableCropArea = newValue }
+  }
 
   private let imageCropView = LHImageCropView(frame: .zero)
   private var toolbar: UIToolbar!
   private var useButton: UIButton!
   private var cancelButton: UIButton!
-
   private var croppedImage: UIImage?
 
   override func viewDidLoad() {
@@ -34,19 +39,15 @@ internal class LHImageCropViewController: UIViewController {
     title = "Choose Photo"
     navigationController?.isNavigationBarHidden = UIDevice.current.userInterfaceIdiom == .phone
     automaticallyAdjustsScrollViewInsets = false
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    guard imageCropView.superview != view else { return }
 
     setupNavigationBar()
     setupCropView()
     setupToolbar()
-  }
-
-  @objc func actionCancel(sender _: AnyObject) {
-    navigationController?.popViewController(animated: true)
-  }
-
-  @objc func actionUse(sender _: AnyObject) {
-    croppedImage = imageCropView.croppedImage()
-    delegate?.imageCropController(imageCropController: self, didFinishWithCroppedImage: croppedImage)
   }
 
   private func setupNavigationBar() {
@@ -58,11 +59,6 @@ internal class LHImageCropViewController: UIViewController {
 
   private func setupCropView() {
     imageCropView.frame = view.bounds
-    imageCropView.cropSize = LHImagePicker.CropConfigs.cropSize
-    imageCropView.translatesAutoresizingMaskIntoConstraints = false
-    imageCropView.imageToCrop = sourceImage
-    imageCropView.cropBorderViewForResizable = cropBorderViewForResizable
-    imageCropView.resizableCropArea = resizableCropArea
     view.addSubview(imageCropView)
     imageCropView.constraintToSuperViewLHImagePicker()
   }
@@ -148,5 +144,21 @@ internal class LHImageCropViewController: UIViewController {
       toolbar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight).isActive = true
+  }
+
+  deinit {
+    print("Release LHImageCropViewController")
+  }
+}
+
+extension LHImageCropViewController {
+  @objc func actionCancel(sender _: AnyObject) {
+    imageCropView.removeFromSuperview()
+    navigationController?.popViewController(animated: true)
+  }
+
+  @objc func actionUse(sender _: AnyObject) {
+    croppedImage = imageCropView.croppedImage()
+    delegate?.imageCropController(imageCropController: self, didFinishWithCroppedImage: croppedImage)
   }
 }

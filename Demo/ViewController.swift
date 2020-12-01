@@ -68,6 +68,7 @@ class ViewController: UIViewController, LHImagePickerDelegate, UIImagePickerCont
   }
 
   @objc func showPicker(_ button: UIButton) {
+    LHImagePicker.CropConfigs.cropSize = CGSize(width: UIScreen.main.bounds.width - 50, height: (UIScreen.main.bounds.width - 50) * 1.5)
     imagePicker = LHImagePicker()
     imagePicker.delegate = self
 

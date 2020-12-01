@@ -75,7 +75,6 @@ internal class LHImagePickerDelegateHandler: NSObject, UIImagePickerControllerDe
     let cropController = LHImageCropViewController()
     cropController.sourceImage = originalImage
     cropController.resizableCropArea = imagePicker.resizableCropArea
-    cropController.cropBorderViewForResizable = imagePicker.delegate?.imagePickerCropBorderClassForResizable?(imagePicker: imagePicker)
     cropController.delegate = imagePicker
     picker.pushViewController(cropController, animated: true)
   }

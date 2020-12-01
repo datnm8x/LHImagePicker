@@ -18,9 +18,8 @@
 		764FD5A81B8F027900BE5F46 /* LHImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5A71B8F027900BE5F46 /* LHImagePicker.swift */; };
 		764FD5AA1B8F033A00BE5F46 /* LHImageCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5A91B8F033A00BE5F46 /* LHImageCropViewController.swift */; };
 		764FD5AC1B8F03B400BE5F46 /* LHImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5AB1B8F03B400BE5F46 /* LHImageCropView.swift */; };
-		764FD5AE1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5AD1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift */; };
 		764FD5B01B8F03FA00BE5F46 /* LHCropBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5AF1B8F03FA00BE5F46 /* LHCropBorderView.swift */; };
-		764FD5B21B8F040A00BE5F46 /* LHResizableCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5B11B8F040A00BE5F46 /* LHResizableCropOverlayView.swift */; };
+		764FD5B21B8F040A00BE5F46 /* LHCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764FD5B11B8F040A00BE5F46 /* LHCropOverlayView.swift */; };
 		83CC419A4962F7162E915A01 /* Pods_LHImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646D03B3ADDB6E6F82A41498 /* Pods_LHImagePicker.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,9 +39,8 @@
 		764FD5A71B8F027900BE5F46 /* LHImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHImagePicker.swift; sourceTree = "<group>"; };
 		764FD5A91B8F033A00BE5F46 /* LHImageCropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHImageCropViewController.swift; sourceTree = "<group>"; };
 		764FD5AB1B8F03B400BE5F46 /* LHImageCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHImageCropView.swift; sourceTree = "<group>"; };
-		764FD5AD1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHImageCropOverlayView.swift; sourceTree = "<group>"; };
 		764FD5AF1B8F03FA00BE5F46 /* LHCropBorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHCropBorderView.swift; sourceTree = "<group>"; };
-		764FD5B11B8F040A00BE5F46 /* LHResizableCropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHResizableCropOverlayView.swift; sourceTree = "<group>"; };
+		764FD5B11B8F040A00BE5F46 /* LHCropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LHCropOverlayView.swift; sourceTree = "<group>"; };
 		A2BAE3637028D1C3329DBA9B /* Pods-LHImagePicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LHImagePicker.release.xcconfig"; path = "Target Support Files/Pods-LHImagePicker/Pods-LHImagePicker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,9 +112,8 @@
 				764FD5A71B8F027900BE5F46 /* LHImagePicker.swift */,
 				764FD5A91B8F033A00BE5F46 /* LHImageCropViewController.swift */,
 				764FD5AB1B8F03B400BE5F46 /* LHImageCropView.swift */,
-				764FD5AD1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift */,
 				764FD5AF1B8F03FA00BE5F46 /* LHCropBorderView.swift */,
-				764FD5B11B8F040A00BE5F46 /* LHResizableCropOverlayView.swift */,
+				764FD5B11B8F040A00BE5F46 /* LHCropOverlayView.swift */,
 				0931938A2574E9290088B10C /* UIView+Constraint.swift */,
 			);
 			path = Classes;
@@ -261,12 +258,11 @@
 			files = (
 				764FD5891B8F01C100BE5F46 /* ViewController.swift in Sources */,
 				764FD5871B8F01C100BE5F46 /* AppDelegate.swift in Sources */,
-				764FD5B21B8F040A00BE5F46 /* LHResizableCropOverlayView.swift in Sources */,
+				764FD5B21B8F040A00BE5F46 /* LHCropOverlayView.swift in Sources */,
 				764FD5B01B8F03FA00BE5F46 /* LHCropBorderView.swift in Sources */,
 				764FD5AC1B8F03B400BE5F46 /* LHImageCropView.swift in Sources */,
 				764FD5A81B8F027900BE5F46 /* LHImagePicker.swift in Sources */,
 				0931938B2574E9290088B10C /* UIView+Constraint.swift in Sources */,
-				764FD5AE1B8F03EC00BE5F46 /* LHImageCropOverlayView.swift in Sources */,
 				764FD5AA1B8F033A00BE5F46 /* LHImageCropViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
